@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar } from '@material-ui/core';
 import { MyButton } from './Button';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,14 +20,11 @@ export const Heading = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography href="/" variant="h6" color="inherit">
-            Minhas notas
-          </Typography>
           <React.Fragment>
-            <Link to="/add"><MyButton color="blue">Adicionar nota</MyButton></Link>
+            <Link to="/adicionar-descoberta"><MyButton color="blue">Adicionar Descoberta</MyButton></Link>
+          </React.Fragment>
+          <React.Fragment>
+            <Link to="/adicionar-comentario"><MyButton color="blue">Adicionar Comentarios</MyButton></Link>
           </React.Fragment>
         </Toolbar>
       </AppBar>
