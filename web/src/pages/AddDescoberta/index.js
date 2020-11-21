@@ -2,18 +2,25 @@ import React, {useState, useContext} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { GlobalContextDescoberta } from './../../context/GlobalStateDescobertas';
 import {v4 as uuid} from 'uuid';
+import px2vw from "../../utils/px2vw";
 
-import { makeStyles } from '@material-ui/core/styles';
-import { InputLabel, Input, TextField} from '@material-ui/core';
+import { Input, TextField} from '@material-ui/core';
 import { MyButton } from './../../components/Button';
+import { Heading } from './../../components/Heading';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { Container, Box, Buttons, Text, Title } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
+    marginLeft: theme.spacing(80),
+    marginTop: theme.spacing(15),
+    padding: theme.spacing(15),
     minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+    display:"inline-block",
+    justifyContent: "center",
+    border: "solid 1px grey",
+    borderRadius: "5px",
   },
   container: {
     display: 'flex',
@@ -22,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    marginTop: `${px2vw(20)}`,
+    color: "#666",
+    fontSize: "1.5rem"
   },
 }));
 
@@ -49,6 +58,7 @@ export const AddDescoberta = () => {
     }
     adicionarDescoberta(novaDescoberta);
     history.push('/');
+    console.log(novaDescoberta)
   }
 
   const onChangeDescoberta = (e) => {
@@ -66,18 +76,21 @@ export const AddDescoberta = () => {
   const onChangeDescricao = (e) => {
     setDescricao(e.target.value)
   }
-  
 
   return(
     <>
-      <form onSubmit={onSubmit}>
-        <InputLabel htmlFor="descoberta">O que encontrou?</InputLabel>
-        <Input 
-          id="descoberta" 
-          value={descoberta} 
-          onChange={onChangeDescoberta}
-        />
-        <form className={classes.container} noValidate>
+      <Heading/>
+      <Container>
+        <form  onSubmit={onSubmit}>
+          <Box>
+          <Title>Nova Descoberta</Title>
+          <Text htmlFor="descoberta">O que encontrou?</Text>
+          <Input 
+            id="descoberta" 
+            value={descoberta} 
+            onChange={onChangeDescoberta}
+          />
+           <form className={classes.container} noValidate>
           <TextField
             id="date"
             label="Data"
@@ -107,16 +120,21 @@ export const AddDescoberta = () => {
             onChange={onChangeHorario}
           />
         </form>
-        <InputLabel htmlFor="descricao">Descrição</InputLabel>
-        <Input 
-          id="descricao" 
-          value={descricao} 
-          onChange={onChangeDescricao}
-        />
-      
-      <MyButton type="submit" color="blue">Salvar</MyButton>
-      <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
-      </form>
+          <Text htmlFor="descricao">Descrição</Text>
+          <Input 
+            id="descricao" 
+            value={descricao} 
+            onChange={onChangeDescricao}
+          />
+          
+          <Buttons>
+            <MyButton type="submit" color="blue">Salvar</MyButton>
+            <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
+          </Buttons>
+
+          </Box>
+        </form>
+      </Container>
     </>
   )
 }

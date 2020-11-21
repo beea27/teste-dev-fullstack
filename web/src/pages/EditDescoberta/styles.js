@@ -16,15 +16,18 @@ export const Container = styled.div`
 export const Box = styled.div`
    display: flex;
     width: ${px2vw(1000)};
-    min-height: ${px2vw(50)};
+    min-height: ${px2vw(100)};
     flex-direction: column;
     padding: ${px2vw(20)};
     margin: ${px2vw(20)};
     background-color: ${props => props.bgColor};
     height: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+
 
   @media (min-width: 768px) {
-    width: ${px2vw(500)};
+    width: ${px2vw(400)};
     min-height: ${px2vw(100)};
     height: 100%;
   }
@@ -62,4 +65,3 @@ export const Buttons = styled.div`
   justify-content: center;
   margin-top: 20px;
 `
-

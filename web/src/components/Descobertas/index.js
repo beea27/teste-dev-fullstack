@@ -5,33 +5,32 @@ import { Link } from 'react-router-dom';
 
 import { GlobalContextDescoberta } from './../../context/GlobalStateDescobertas';
 
-import { Container, Box, Title, Text } from "./styles";
-import './styles.css';
+import { Container, Box, Title, Text, Buttons} from "./styles";
 
 export const Descobertas = () => {
   const { descobertas, removerDescoberta } = useContext(GlobalContextDescoberta);
   
   return (
     <>
-      <div className="container">
+      <div style={{margin: "10px"}}>
         <Title>Descobertas</Title>
         <Container>
           {descobertas.length > 0 ? (
             <>
               {descobertas.map(descoberta => (
-                <Card className="cards" key={descoberta.id}>
+                <Card style={{margin: "20px"}} key={descoberta.id}>
                   <Box>
                     <Title>{descoberta.descoberta}</Title>
                     <Text>{descoberta.data}</Text>
                     <Text>{descoberta.horario}</Text>
                     <Text>{descoberta.descricao}</Text>
 
-                    <div className="buttons">
+                    <Buttons>
                       <Link to={`/editar-descoberta/${descoberta.id}`}>
                         <MyButton type="submit" color="blue">Editar</MyButton>
                       </Link>            
                       <MyButton onClick={() => removerDescoberta(descoberta.id)} color="red">Excluir</MyButton>
-                    </div>
+                    </Buttons>
                   </Box>
                 </Card>
               )

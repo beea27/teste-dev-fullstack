@@ -1,11 +1,13 @@
 import React, {useState, useContext} from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { InputLabel, Input } from '@material-ui/core';
+import { Input } from '@material-ui/core';
 import { MyButton } from './../../components/Button';
 import { GlobalContextComentarios } from './../../context/GlobalStateComentarios';
 import {v4 as uuid} from 'uuid';
+import { Heading } from './../../components/Heading';
 
-import './styles.css';
+
+import { Container, Box, Buttons, Text, Title } from "./styles";
 
 export const AddComentario = () => {   
   const [assunto, setAssunto] = useState('');
@@ -34,27 +36,32 @@ export const AddComentario = () => {
 
   return(
     <>
-    <form class="form_container" onSubmit={onSubmit}>
-      <div class="form">
-        <InputLabel htmlFor="assunto">Assunto</InputLabel>
-        <Input 
-          id="assunto" 
-          value={assunto}
-          onChange={onChangeAssunto}
-        />
-      </div>
-      <div class="form">
-        <InputLabel htmlFor="descricao">Descrição</InputLabel>
-        <Input 
-          id="descricao" 
-          value={descricao}
-          onChange={onChangeDescricao}
-        />
-      </div>
-      
-      <MyButton type="submit" color="blue">Salvar</MyButton>
-      <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
-    </form>
+    <Heading/>
+    <Container>
+      <form onSubmit={onSubmit}>
+        <Box>
+          <Title>Novo Comentário</Title>
+          <Text htmlFor="assunto">Assunto</Text>
+          <Input 
+            id="assunto" 
+            value={assunto}
+            onChange={onChangeAssunto}
+          />
+
+          <Text htmlFor="descricao">Descrição</Text>
+          <Input 
+            id="descricao" 
+            value={descricao}
+            onChange={onChangeDescricao}
+          />
+        
+        <Buttons>
+          <MyButton type="submit" color="blue">Salvar</MyButton>
+          <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
+        </Buttons>
+        </Box>
+      </form>
+    </Container>
     </>
   )
 }

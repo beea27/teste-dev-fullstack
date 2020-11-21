@@ -55,3 +55,11 @@ export const Text = styled.p`
     font-size: 0.8rem;
   }
 `;
+
+export const Buttons = styled.div`
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+`
+

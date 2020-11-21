@@ -7,7 +7,6 @@ import { EditComentario } from './pages/EditComentario';
 import { AddComentario } from './pages/AddComentario';
 import { AddDescoberta } from './pages/AddDescoberta';
 
-
 import { GlobalProviderComentarios } from './context/GlobalStateComentarios';
 import { GlobalProviderDescobertas } from './context/GlobalStateDescobertas';
 

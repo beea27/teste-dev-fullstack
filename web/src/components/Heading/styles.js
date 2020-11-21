@@ -1,12 +1,12 @@
 import styled from "styled-components";
+import px2vw from "../../utils/px2vw";
 
 export const Text = styled.p`
-  color: #FFF;
-  font-size: 1.2rem;
-  text-decoration: none;
-  font-weight: bold;
+  margin: ${px2vw(4)};
+  color: #666;
+  font-size: 1.5rem;
 
   @media (min-width: 1024px) {
-    font-size: 0.8rem;
+    font-size: 1.0rem;
   }
 `;
