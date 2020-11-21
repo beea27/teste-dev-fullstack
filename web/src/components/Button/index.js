@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
-
+import { Button } from "./styles";
 
 const useStyles = makeStyles({
   root: {
@@ -17,9 +16,9 @@ const useStyles = makeStyles({
         ? '0 3px 5px 2px rgba(255, 105, 135, .3)'
         : '0 3px 5px 2px rgba(33, 203, 243, .3)',
     color: 'white',
-    height: 48,
-    padding: '0 30px',
-    margin: 8,
+    height: 35,
+    padding: '0 10px',
+    margin: 5,
   },
 });
 

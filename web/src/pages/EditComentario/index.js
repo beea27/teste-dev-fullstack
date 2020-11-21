@@ -1,31 +1,10 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FormControl, InputLabel, Input } from '@material-ui/core';
-import { MyButton } from './Button';
-import { makeStyles } from '@material-ui/core/styles';
-import { GlobalContextComentarios } from '../context/GlobalStateComentarios';
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-}));
+import { InputLabel, Input } from '@material-ui/core';
+import { MyButton } from './../../components/Button';
+import { GlobalContextComentarios } from './../../context/GlobalStateComentarios';
 
 export const EditComentario = (props) => {
-  const classes = useStyles();
   
   const {comentarios, editarComentario} = useContext(GlobalContextComentarios);
   const [comentarioSelecionado, setComentarioSelecionado] = useState({
@@ -34,17 +13,13 @@ export const EditComentario = (props) => {
     descricao:''
   });
 
-  const history = useHistory();
-  const currentComentarioId = props.match.params.id;
-  console.log(comentarioSelecionado)
+  const history = useHistory();  
 
   useEffect(() => {
-    const comentarioId = currentComentarioId;
-    console.log(typeof comentarioId)
+    const comentarioId = props.match.params.id;
     const comentarioSelecionado = comentarios.find(comentario => comentario.id === comentarioId);
     setComentarioSelecionado(comentarioSelecionado)
-    console.log(comentarioSelecionado)
-  }, [currentComentarioId, comentarios])
+  }, [props, comentarios]);
 
   const onSubmit = () => {
     editarComentario(comentarioSelecionado)
@@ -58,7 +33,6 @@ export const EditComentario = (props) => {
   return(
     <>
      <form onSubmit={onSubmit}>
-      <FormControl>
         <InputLabel htmlFor="assunto">Assunto</InputLabel>
         <Input 
           id="assunto"
@@ -66,8 +40,6 @@ export const EditComentario = (props) => {
           value={comentarioSelecionado.assunto}
           onChange={onChange}
         />
-      </FormControl>
-      <FormControl>
         <InputLabel htmlFor="descricao">Descrição</InputLabel>
         <Input 
           id="descricao"
@@ -75,11 +47,8 @@ export const EditComentario = (props) => {
           value={comentarioSelecionado.descricao}
           onChange={onChange}
         />
-      </FormControl>
-        <React.Fragment>
-          <MyButton type="submit" color="blue">Salvar</MyButton>
-          <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
-        </React.Fragment>
+        <MyButton type="submit" color="blue">Salvar</MyButton>
+        <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
       </form>
     </>
   )
