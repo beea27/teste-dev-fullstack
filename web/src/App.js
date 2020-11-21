@@ -11,6 +11,8 @@ import { GlobalProviderComentarios } from './context/GlobalStateComentarios';
 import { GlobalProviderDescobertas } from './context/GlobalStateDescobertas';
 
 import Global from "./styles/global";
+import { Login } from './pages/Login';
+import { Cadastro } from './pages/Cadastro';
 
 function App() {
   return (
@@ -20,7 +22,9 @@ function App() {
         <GlobalProviderComentarios>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={Home}/>
+              <Route exact path="/" component={Login}/>
+              <Route path="/cadastro" component={Cadastro}/>
+              <Route path="/home" component={Home}/>
               <Route path="/adicionar-comentario" component={AddComentario}/>
               <Route path="/adicionar-descoberta" component={AddDescoberta}/>
               <Route path="/editar-descoberta/:id" component={EditDescoberta}/>

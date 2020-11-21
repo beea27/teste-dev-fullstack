@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {AppBar, Toolbar, Button, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList} from '@material-ui/core';
-import {Text} from './styles';
+import {Text, Title} from './styles';
 import menu from './../../assets/img/menu.svg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   },
   paper: {
     marginRight: theme.spacing(11),
@@ -53,6 +53,7 @@ export const Heading = () => {
   return (
     <AppBar position="static">
       <Toolbar className={classes.root} variant="dense">
+      <Title>Descobertas&Comentários</Title>
       <div>
         <Button
           ref={anchorRef}
@@ -71,10 +72,10 @@ export const Heading = () => {
               <Paper className={classes.paper}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <Link to="/"><MenuItem><Text>Home</Text></MenuItem></Link>
+                    <Link to="/home"><MenuItem><Text>Home</Text></MenuItem></Link>
                     <Link to="/adicionar-descoberta"><MenuItem><Text>Nova Descoberta</Text></MenuItem></Link>
                     <Link to="/adicionar-comentario"><MenuItem><Text>Novo Comentário</Text></MenuItem></Link>
-                    <Link><MenuItem onClick={handleClose}><Text>Sair</Text></MenuItem></Link>
+                    <Link to="/"><MenuItem ><Text>Sair</Text></MenuItem></Link>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
