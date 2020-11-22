@@ -23,7 +23,7 @@ export const AddComentario = () => {
       descricao
     }
     adicionarComentario(newComentario);
-    history.push('/');
+    history.push('/home');
   }
 
   const onChangeAssunto = (e) => {

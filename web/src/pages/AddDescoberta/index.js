@@ -57,7 +57,7 @@ export const AddDescoberta = () => {
       descricao
     }
     adicionarDescoberta(novaDescoberta);
-    history.push('/');
+    history.push('/home');
     console.log(novaDescoberta)
   }
 
