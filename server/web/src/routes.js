@@ -14,7 +14,7 @@ import Global from "./styles/global";
 import { Login } from './pages/Login';
 import { Cadastro } from './pages/Cadastro';
 
-function App() {
+function Routes() {
   return (
     <div className="App">
       <Global/>
@@ -37,4 +37,4 @@ function App() {
   );
 }
 
-export default App;
+export default Routes;

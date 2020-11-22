@@ -4,7 +4,9 @@
   "description": "teste-dev-fulltack",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "web": "npm start --prefix web",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run web\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +28,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "nodemon": "^2.0.6"
   }
 }
