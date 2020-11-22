@@ -11,6 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
 
+import api from './../../services/api';
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     marginLeft: theme.spacing(80),
@@ -48,7 +50,8 @@ export const AddDescoberta = () => {
   const {adicionarDescoberta} = useContext(GlobalContextDescoberta);
   const history = useHistory();
 
-  const onSubmit = () => {
+  async function handleSubmit (e) {
+    e.preventDefault();
     const novaDescoberta = {
       id: uuid(),
       descoberta,
@@ -59,36 +62,34 @@ export const AddDescoberta = () => {
     adicionarDescoberta(novaDescoberta);
     history.push('/home');
     console.log(novaDescoberta)
-  }
 
-  const onChangeDescoberta = (e) => {
-    setDescoberta(e.target.value);
-  }
+    // if(descoberta!==''&&data!==''&&horario!==''&&descricao!==''){
+    //   const response = await api.post('/api/descobertas', novaDescoberta);
 
-  const onChangeData = (e) => {
-    setData(e.target.value);
-  }
-
-  const onChangeHorario = (e) => {
-    setHorario(e.target.value);
-  }
-
-  const onChangeDescricao = (e) => {
-    setDescricao(e.target.value)
+    //   if(response.status===200){
+    //     adicionarDescoberta(novaDescoberta);
+    //     history.push('/home')
+    //   }
+    //   else{
+    //     alert("Erro ao cadastrar um novo comentario")
+    //   }
+    // }else{
+    //     alert('Por favor, preencha todos os campos ')
+    // }
   }
 
   return(
     <>
       <Heading/>
       <Container>
-        <form  onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           <Box>
           <Title>Nova Descoberta</Title>
           <Text htmlFor="descoberta">O que encontrou?</Text>
           <Input 
             id="descoberta" 
             value={descoberta} 
-            onChange={onChangeDescoberta}
+            onChange={e => setDescoberta(e.target.value)}
           />
            <form className={classes.container} noValidate>
           <TextField
@@ -100,7 +101,7 @@ export const AddDescoberta = () => {
               shrink: true,
             }}
             value={data} 
-            onChange={onChangeData}
+            onChange={e => setData(e.target.value)}
           />
         </form>
         <form className={classes.container} noValidate>
@@ -117,19 +118,19 @@ export const AddDescoberta = () => {
               step: 300, // 5 min
             }}
             value={horario} 
-            onChange={onChangeHorario}
+            onChange={e => setHorario(e.target.value)}
           />
         </form>
           <Text htmlFor="descricao">Descrição</Text>
           <Input 
             id="descricao" 
             value={descricao} 
-            onChange={onChangeDescricao}
+            onChange={e => setDescricao(e.target.value)}
           />
           
           <Buttons>
             <MyButton type="submit" color="blue">Salvar</MyButton>
-            <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
+            <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
           </Buttons>
 
           </Box>

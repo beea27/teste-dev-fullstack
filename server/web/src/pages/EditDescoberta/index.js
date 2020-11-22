@@ -7,6 +7,7 @@ import { Heading } from './../../components/Heading';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Box, Buttons, Text, Title } from "./styles";
 import px2vw from "../../utils/px2vw";
+import api from './../../services/api';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -53,20 +54,31 @@ export const EditDescoberta = (props) => {
     setDescobertaSelecionada(descobertaSelecionada)
   }, [currentDescobertaId, descobertas]);
 
-  const onSubmit = () => {
+  async function handleSubmit(e) {
+    e.preventDefault();
     editarDescoberta(descobertaSelecionada)
-    history.push('/');
-  }
+    history.push('/home');
 
-  const onChange = (e) => {
-    setDescobertaSelecionada({...descobertaSelecionada, [e.target.name]: e.target.value})
+    // if(descobertaSelecionada.descoberta!==''&&descobertaSelecionada.data!==''&&descobertaSelecionada.horario!==''&&descobertaSelecionada.descricao!==''){
+    //   const response = await api.post('/api/descobertas');
+
+    //   if(response.status===200){
+    //     editarDescoberta(descobertaSelecionada)
+    //     history.push('/home')
+    //   }
+    //   else{
+    //     alert("Erro ao cadastrar uma nova descoberta")
+    //   }
+    // }else{
+    //     alert('Por favor, preencha todos os campos ')
+    // }
   }
 
   return(
     <>
      <Heading/>
       <Container>
-        <form  onSubmit={onSubmit}>
+        <form  onSubmit={handleSubmit}>
           <Box>
           <Title>Descoberta</Title>
           <Text htmlFor="descoberta">O que encontrou?</Text>
@@ -74,7 +86,7 @@ export const EditDescoberta = (props) => {
             id="descoberta" 
             name="descoberta"
             value={descobertaSelecionada.descoberta} 
-            onChange={onChange}
+            onChange={e => setDescobertaSelecionada({...descobertaSelecionada, [e.target.name]: e.target.value})}
           />
            <form className={classes.container} noValidate>
           <TextField
@@ -87,7 +99,7 @@ export const EditDescoberta = (props) => {
             }}
             name="data"
             value={descobertaSelecionada.data} 
-            onChange={onChange}
+            onChange={e => setDescobertaSelecionada({...descobertaSelecionada, [e.target.name]: e.target.value})}
           />
         </form>
         <form className={classes.container} noValidate>
@@ -105,7 +117,7 @@ export const EditDescoberta = (props) => {
             }}
             name="horario"
             value={descobertaSelecionada.horario} 
-            onChange={onChange}
+            onChange={e => setDescobertaSelecionada({...descobertaSelecionada, [e.target.name]: e.target.value})}
           />
         </form>
           <Text htmlFor="descricao">Descrição</Text>
@@ -113,16 +125,16 @@ export const EditDescoberta = (props) => {
             id="descricao" 
             name="descricao"
             value={descobertaSelecionada.descricao} 
-            onChange={onChange}
+            onChange={e => setDescobertaSelecionada({...descobertaSelecionada, [e.target.name]: e.target.value})}
           />
 
     
           <Buttons>
             <MyButton type="submit" color="blue">Salvar</MyButton>
-            <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
+            <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
           </Buttons>
 
-          </Box>
+        </Box>
       </form>
     </Container>
     </>

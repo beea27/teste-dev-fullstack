@@ -5,6 +5,7 @@ import { MyButton } from './../../components/Button';
 import { GlobalContextComentarios } from './../../context/GlobalStateComentarios';
 import {v4 as uuid} from 'uuid';
 import { Heading } from './../../components/Heading';
+import api from './../../services/api';
 
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
@@ -16,48 +17,55 @@ export const AddComentario = () => {
   const { adicionarComentario } = useContext(GlobalContextComentarios);
   const history = useHistory();
 
-  const onSubmit = () => {
-    const newComentario = {
+  async function handleSubmit(e){
+    e.preventDefault()
+    const novoComentario = {
       id: uuid(),
       assunto,
       descricao
     }
-    adicionarComentario(newComentario);
-    history.push('/home');
-  }
+    // history.push('/home')
+    // adicionarComentario(novoComentario);
 
-  const onChangeAssunto = (e) => {
-    setAssunto(e.target.value)
-  }
+    if(assunto!==''&&descricao!==''){
+      const response = await api.post('/api/comentarios', novoComentario);
 
-  const onChangeDescricao = (e) => {
-    setDescricao(e.target.value)
+      if(response.status===200){
+        adicionarComentario(novoComentario);
+        history.push('/home')
+      }
+      else{
+        alert("Erro ao cadastrar um novo comentario")
+      }
+    }else{
+        alert('Por favor, preencha todos os campos ')
+    }
   }
 
   return(
     <>
     <Heading/>
     <Container>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <Box>
           <Title>Novo Comentário</Title>
           <Text htmlFor="assunto">Assunto</Text>
           <Input 
             id="assunto" 
             value={assunto}
-            onChange={onChangeAssunto}
+            onChange={e => setAssunto(e.target.value)}
           />
 
           <Text htmlFor="descricao">Descrição</Text>
           <Input 
             id="descricao" 
             value={descricao}
-            onChange={onChangeDescricao}
+            onChange={e => setDescricao(e.target.value)}
           />
         
         <Buttons>
           <MyButton type="submit" color="blue">Salvar</MyButton>
-          <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
+          <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
         </Buttons>
         </Box>
       </form>

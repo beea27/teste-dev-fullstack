@@ -14,6 +14,8 @@ import Global from "./styles/global";
 import { Login } from './pages/Login';
 import { Cadastro } from './pages/Cadastro';
 
+//import PrivateRoute from './services/wauth';
+
 function Routes() {
   return (
     <div className="App">

@@ -4,6 +4,7 @@ import {AppBar, Toolbar, Input } from '@material-ui/core';
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 
 import api from './../../services/api';
 
@@ -19,12 +20,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 export const Cadastro = () => {
   const classes = useStyles();
+  const history = useHistory()
 
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  async function handleSubmit(){
+  async function handleSubmit(e){
+    e.preventDefault()
     const data = {
       nome_usuario:nome,
       email_usuario:email,
@@ -37,13 +40,13 @@ export const Cadastro = () => {
       const response = await api.post('/api/usuarios', data);
 
       if(response.status===200){
-        return window.location.href='/'
+        history.push('/')
       }
       else{
-        return alert("Erro ao cadastrar o usuário")
+        alert("Erro ao cadastrar o usuário")
       }
     }else{
-      return alert('Por favor, preencha todos os campos ')
+        alert('Por favor, preencha todos os campos ')
     }
   }
 

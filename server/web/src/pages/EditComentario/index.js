@@ -8,6 +8,8 @@ import { Heading } from './../../components/Heading';
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
 
+import api from './../../services/api';
+
 export const EditComentario = (props) => {
 
   const {comentarios, editarComentario} = useContext(GlobalContextComentarios);
@@ -25,20 +27,31 @@ export const EditComentario = (props) => {
     setComentarioSelecionado(comentarioSelecionado)
   }, [props, comentarios]);
 
-  const onSubmit = () => {
+  async function handleSubmit(e) {
+    e.preventDefault();
     editarComentario(comentarioSelecionado)
-    history.push('/');
-  }
+    history.push('/home');
 
-  const onChange = (e) => {
-    setComentarioSelecionado({...comentarioSelecionado, [e.target.name]: e.target.value})
+    // if(comentarioSelecionado.assunto!==''&&comentarioSelecionado.descricao!==''){
+    //   const response = await api.post('/api/comentarios');
+
+    //   if(response.status===200){
+    //     editarComentario(comentarioSelecionado)
+    //     history.push('/home')
+    //   }
+    //   else{
+    //     alert("Erro ao cadastrar um novo comentario")
+    //   }
+    // }else{
+    //     alert('Por favor, preencha todos os campos ')
+    // }
   }
 
   return(
     <>
       <Heading/>
       <Container>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           <Box>
             <Title>Editar Comentário</Title>
             <Text htmlFor="assunto">Assunto</Text>
@@ -46,7 +59,7 @@ export const EditComentario = (props) => {
               id="assunto" 
               name="assunto"
               value={comentarioSelecionado.assunto}
-              onChange={onChange}
+              onChange={e => setComentarioSelecionado({...comentarioSelecionado, [e.target.name]: e.target.value})}
             />
 
             <Text htmlFor="descricao">Descrição</Text>
@@ -54,12 +67,12 @@ export const EditComentario = (props) => {
               id="descricao"
               name="descricao"
               value={comentarioSelecionado.descricao}
-              onChange={onChange}
+              onChange={e => setComentarioSelecionado({...comentarioSelecionado, [e.target.name]: e.target.value})}
             />
           
           <Buttons>
             <MyButton type="submit" color="blue">Salvar</MyButton>
-            <Link to="/"><MyButton color="red">Cancelar</MyButton></Link>
+            <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
           </Buttons>
           </Box>
         </form>

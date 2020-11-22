@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import {AppBar, Toolbar, Button, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList} from '@material-ui/core';
 import {Text, Title} from './styles';
 import menu from './../../assets/img/menu.svg'
+import api from '../../services/api';
+import { getToken, logout } from '../../services/auth';
+
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const Heading = () => {
   const classes = useStyles();
+  const history = useHistory();
+
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -37,6 +43,19 @@ export const Heading = () => {
     if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
+    }
+  }
+
+  async function Sair(){
+    if(window.confirm("Deseja realmente sair do sistema?")){
+      const response = await api.get('/api/usuarios/destroytoken', {headers: {token: getToken()}})
+      if(response.status===200){
+        logout();
+        history.push('/');
+      }
+      else{
+        alert("Não foi possível fazer o logout")
+      }
     }
   }
 
@@ -75,7 +94,7 @@ export const Heading = () => {
                     <Link to="/home"><MenuItem><Text>Home</Text></MenuItem></Link>
                     <Link to="/adicionar-descoberta"><MenuItem><Text>Nova Descoberta</Text></MenuItem></Link>
                     <Link to="/adicionar-comentario"><MenuItem><Text>Novo Comentário</Text></MenuItem></Link>
-                    <Link to="/"><MenuItem ><Text>Sair</Text></MenuItem></Link>
+                    <MenuItem onClick={Sair}><Text>Sair</Text></MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
