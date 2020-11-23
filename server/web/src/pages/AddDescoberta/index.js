@@ -1,7 +1,5 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { GlobalContextDescoberta } from './../../context/GlobalStateDescobertas';
-import {v4 as uuid} from 'uuid';
 import px2vw from "../../utils/px2vw";
 
 import { Input, TextField} from '@material-ui/core';
@@ -38,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const AddDescoberta = () => {
-
+  
+  const history = useHistory();
   const classes = useStyles();
   
   const [descoberta, setDescoberta] = useState('');
@@ -46,36 +45,28 @@ export const AddDescoberta = () => {
   const [horario, setHorario] = useState('');
   const [descricao, setDescricao] = useState('');
 
-
-  const {adicionarDescoberta} = useContext(GlobalContextDescoberta);
-  const history = useHistory();
-
   async function handleSubmit (e) {
     e.preventDefault();
+
     const novaDescoberta = {
-      id: uuid(),
-      descoberta,
-      data,
-      horario,
-      descricao
+      nome_descoberta: descoberta, 
+      data_descoberta: data, 
+      horario_descoberta: horario, 
+      descricao_descoberta: descricao
     }
-    adicionarDescoberta(novaDescoberta);
-    history.push('/home');
-    console.log(novaDescoberta)
+ 
+    if(descoberta!==''&&data!==''&&horario!==''&&descricao!==''){
+      const response = await api.post('/api/descobertas', novaDescoberta);
 
-    // if(descoberta!==''&&data!==''&&horario!==''&&descricao!==''){
-    //   const response = await api.post('/api/descobertas', novaDescoberta);
-
-    //   if(response.status===200){
-    //     adicionarDescoberta(novaDescoberta);
-    //     history.push('/home')
-    //   }
-    //   else{
-    //     alert("Erro ao cadastrar um novo comentario")
-    //   }
-    // }else{
-    //     alert('Por favor, preencha todos os campos ')
-    // }
+      if(response.status===200){
+        history.push('/home')
+      }
+      else{
+        alert("Erro ao cadastrar um novo comentario")
+      }
+    }else{
+        alert('Por favor, preencha todos os campos ')
+    }
   }
 
   return(

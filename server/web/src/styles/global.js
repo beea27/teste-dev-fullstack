@@ -1,11 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 import px2vw from "../utils/px2vw";
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+</style>
 
 export const Global = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Dancing Script', cursive;
   }
   :root {
       font-size: ${px2vw(24)};

@@ -9,6 +9,7 @@ module.exports = {
   async create(req, res){
     const {assunto_comentario, descricao_comentario} = req.body
 
+
     let data = {};
 
     let comentario = await Comentario.findOne({assunto_comentario});

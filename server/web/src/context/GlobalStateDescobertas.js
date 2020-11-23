@@ -1,5 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
+import api from './../services/api';
+import { useHistory } from 'react-router-dom';
 
 const initialStateDescobertas = {
   descobertas: []
@@ -10,6 +12,8 @@ const GlobalContextDescoberta = createContext(initialStateDescobertas);
 
 
 const GlobalProviderDescobertas = ({children}) => {
+  const history = useHistory();
+
   const [stateDescobertas, dispatchDescobertas] = useReducer(AppReducer, initialStateDescobertas);
 
   const removerDescoberta = (id) => {
@@ -19,11 +23,15 @@ const GlobalProviderDescobertas = ({children}) => {
     })
   }
 
-  const adicionarDescoberta = (descoberta) => {
-    dispatchDescobertas({
-      type: 'adicionarDescobertas',
-      payload: descoberta
-    })
+  async function adicionarDescoberta(descoberta){
+    const response = await api.post('/api/descobertas', descoberta);
+    console.log(response);
+    if(response.status===200){
+      history.push('/home')
+    }
+    else{
+      alert("Erro ao cadastrar um novo comentario")
+    }
   }
 
   const editarDescoberta = (descoberta) => {

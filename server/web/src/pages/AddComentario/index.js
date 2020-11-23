@@ -1,37 +1,35 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Input } from '@material-ui/core';
 import { MyButton } from './../../components/Button';
-import { GlobalContextComentarios } from './../../context/GlobalStateComentarios';
-import {v4 as uuid} from 'uuid';
 import { Heading } from './../../components/Heading';
 import api from './../../services/api';
 
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
 
-export const AddComentario = () => {   
+export const AddComentario = () => { 
+  const history = useHistory();
+  
   const [assunto, setAssunto] = useState('');
   const [descricao, setDescricao] = useState('');
 
-  const { adicionarComentario } = useContext(GlobalContextComentarios);
-  const history = useHistory();
-
   async function handleSubmit(e){
     e.preventDefault()
-    const novoComentario = JSON.stringify({
-      id: uuid(),
-      assunto,
-      descricao
-    })
-    // history.push('/home')
-    // adicionarComentario(novoComentario);
+    
+    const novoComentario = {
+      assunto_comentario : assunto,
+      descricao_comentario: descricao
+    }
 
-    if(assunto!==''&&descricao!==''){
-      const response = await api.post('/api/comentarios', novoComentario);
+
+    const response = await api.post('/api/comentarios', novoComentario);
+    console.log(response);
+
+    if(assunto!=='' && descricao!==''){
+      console.log(response);
 
       if(response.status===200){
-        adicionarComentario(novoComentario);
         history.push('/home')
       }
       else{
