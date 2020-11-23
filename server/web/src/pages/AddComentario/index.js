@@ -19,11 +19,11 @@ export const AddComentario = () => {
 
   async function handleSubmit(e){
     e.preventDefault()
-    const novoComentario = {
+    const novoComentario = JSON.stringify({
       id: uuid(),
       assunto,
       descricao
-    }
+    })
     // history.push('/home')
     // adicionarComentario(novoComentario);
 

@@ -14,7 +14,7 @@ import Global from "./styles/global";
 import { Login } from './pages/Login';
 import { Cadastro } from './pages/Cadastro';
 
-//import PrivateRoute from './services/wauth';
+import PrivateRoute from './services/wauth';
 
 function Routes() {
   return (
@@ -26,11 +26,11 @@ function Routes() {
             <Switch>
               <Route exact path="/" component={Login}/>
               <Route path="/cadastro" component={Cadastro}/>
-              <Route path="/home" component={Home}/>
-              <Route path="/adicionar-comentario" component={AddComentario}/>
-              <Route path="/adicionar-descoberta" component={AddDescoberta}/>
-              <Route path="/editar-descoberta/:id" component={EditDescoberta}/>
-              <Route path="/editar-comentario/:id" component={EditComentario}/>
+              <PrivateRoute path="/home" component={Home}/>
+              <PrivateRoute path="/adicionar-comentario" component={AddComentario}/>
+              <PrivateRoute path="/adicionar-descoberta" component={AddDescoberta}/>
+              <PrivateRoute path="/editar-descoberta/:id" component={EditDescoberta}/>
+              <PrivateRoute path="/editar-comentario/:id" component={EditComentario}/>
             </Switch>
           </BrowserRouter>
           </GlobalProviderComentarios>

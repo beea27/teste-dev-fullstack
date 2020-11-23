@@ -10,7 +10,8 @@ export const Home = () => {
   return(
     <>
       <Heading/>
-      <Title>Olá, {getNomeUsuario()}</Title>
+      <Title>Olá, </Title>
+      {getNomeUsuario()}
       <Descobertas/>
       <Comentarios/>
     </>
