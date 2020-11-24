@@ -45,7 +45,7 @@ export const Comentarios = () => {
                     <Text>{comentario.descricao_comentario}</Text>
 
                     <Buttons>
-                      <Link to={`/editar-comentario/${comentario._id_comentario}`}>
+                      <Link to={`/editar-comentario/${comentario._id}`}>
                         <MyButton type="submit" color="blue">Editar</MyButton>
                       </Link>            
                       <MyButton onClick={() => handleDelete(comentario._id)} color="red">Excluir</MyButton>

@@ -1,82 +1,87 @@
-import React, {useState, useContext, useEffect} from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useHistory, useParams} from 'react-router-dom';
 import { Input } from '@material-ui/core';
 import { MyButton } from './../../components/Button';
-import { GlobalContextComentarios } from './../../context/GlobalStateComentarios';
-
 import { Heading } from './../../components/Heading';
+import api from './../../services/api';
+
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
 
-import api from './../../services/api';
+export const EditComentario = () => { 
+  const history = useHistory();
+  
+  const [assunto, setAssunto] = useState('');
+  const [descricao, setDescricao] = useState('');
 
-export const EditComentario = (props) => {
-
-  const {comentarios, editarComentario} = useContext(GlobalContextComentarios);
-  const [comentarioSelecionado, setComentarioSelecionado] = useState({
-    id: '',
-    assunto: '',
-    descricao:''
-  });
-
-  const history = useHistory();  
+  const {idComentario} = useParams();
 
   useEffect(() => {
-    const comentarioId = props.match.params.id;
-    const comentarioSelecionado = comentarios.find(comentario => comentario.id === comentarioId);
-    setComentarioSelecionado(comentarioSelecionado)
-  }, [props, comentarios]);
+    async function getComentario(){
+      var response = await api.get('/api/comentarios.details/'+idComentario);
+      
+      setAssunto(response.data.assunto_comentario);
+      setDescricao(response.data.descricao_comentario);
+    }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    editarComentario(comentarioSelecionado)
-    history.push('/home');
+    getComentario();
+  }, [])
 
-    // if(comentarioSelecionado.assunto!==''&&comentarioSelecionado.descricao!==''){
-    //   const response = await api.post('/api/comentarios');
+  async function handleSubmit(e){
+    e.preventDefault()
+    
+    const novoComentario = {
+      assunto_comentario : assunto,
+      descricao_comentario: descricao,
+      _id: idComentario
+    }
 
-    //   if(response.status===200){
-    //     editarComentario(comentarioSelecionado)
-    //     history.push('/home')
-    //   }
-    //   else{
-    //     alert("Erro ao cadastrar um novo comentario")
-    //   }
-    // }else{
-    //     alert('Por favor, preencha todos os campos ')
-    // }
+
+    const response = await api.put('/api/comentarios', novoComentario);
+    console.log(response);
+
+    if(assunto!=='' && descricao!==''){
+      console.log(response);
+
+      if(response.status===200){
+        history.push('/home')
+      }
+      else{
+        alert("Erro ao atualizar o comentario")
+      }
+    }else{
+        alert('Por favor, preencha todos os campos ')
+    }
   }
 
   return(
     <>
-      <Heading/>
-      <Container>
-        <form onSubmit={handleSubmit}>
-          <Box>
-            <Title>Editar Comentário</Title>
-            <Text htmlFor="assunto">Assunto</Text>
-            <Input 
-              id="assunto" 
-              name="assunto"
-              value={comentarioSelecionado.assunto}
-              onChange={e => setComentarioSelecionado({...comentarioSelecionado, [e.target.name]: e.target.value})}
-            />
+    <Heading/>
+    <Container>
+      <form onSubmit={handleSubmit}>
+        <Box>
+          <Title>Editar Comentário</Title>
+          <Text htmlFor="assunto">Assunto</Text>
+          <Input 
+            id="assunto" 
+            value={assunto}
+            onChange={e => setAssunto(e.target.value)}
+          />
 
-            <Text htmlFor="descricao">Descrição</Text>
-            <Input 
-              id="descricao"
-              name="descricao"
-              value={comentarioSelecionado.descricao}
-              onChange={e => setComentarioSelecionado({...comentarioSelecionado, [e.target.name]: e.target.value})}
-            />
-          
-          <Buttons>
-            <MyButton type="submit" color="blue">Salvar</MyButton>
-            <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
-          </Buttons>
-          </Box>
-        </form>
-      </Container>
+          <Text htmlFor="descricao">Descrição</Text>
+          <Input 
+            id="descricao" 
+            value={descricao}
+            onChange={e => setDescricao(e.target.value)}
+          />
+        
+        <Buttons>
+          <MyButton type="submit" color="blue">Salvar</MyButton>
+          <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
+        </Buttons>
+        </Box>
+      </form>
+    </Container>
     </>
   )
 }

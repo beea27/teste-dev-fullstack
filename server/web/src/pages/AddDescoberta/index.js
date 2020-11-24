@@ -1,44 +1,17 @@
 import React, {useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import px2vw from "../../utils/px2vw";
 
 import { Input, TextField} from '@material-ui/core';
 import { MyButton } from './../../components/Button';
 import { Heading } from './../../components/Heading';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
 
 import api from './../../services/api';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    marginLeft: theme.spacing(80),
-    marginTop: theme.spacing(15),
-    padding: theme.spacing(15),
-    minWidth: 120,
-    display:"inline-block",
-    justifyContent: "center",
-    border: "solid 1px grey",
-    borderRadius: "5px",
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginTop: `${px2vw(20)}`,
-    color: "#666",
-    fontSize: "1.5rem"
-  },
-}));
-
 export const AddDescoberta = () => {
   
   const history = useHistory();
-  const classes = useStyles();
   
   const [descoberta, setDescoberta] = useState('');
   const [data, setData] = useState('');
@@ -82,12 +55,11 @@ export const AddDescoberta = () => {
             value={descoberta} 
             onChange={e => setDescoberta(e.target.value)}
           />
-           <form className={classes.container} noValidate>
+           <form noValidate>
           <TextField
             id="date"
             label="Data"
             type="date"
-            className={classes.textField}
             InputLabelProps={{
               shrink: true,
             }}
@@ -95,13 +67,12 @@ export const AddDescoberta = () => {
             onChange={e => setData(e.target.value)}
           />
         </form>
-        <form className={classes.container} noValidate>
+        <form noValidate>
           <TextField
             id="time"
             label="Horário"
             type="time"
             defaultValue="07:30"
-            className={classes.textField}
             InputLabelProps={{
               shrink: true,
             }}

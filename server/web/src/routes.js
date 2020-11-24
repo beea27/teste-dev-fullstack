@@ -29,8 +29,8 @@ function Routes() {
               <PrivateRoute path="/home" component={Home}/>
               <PrivateRoute path="/adicionar-comentario" component={AddComentario}/>
               <PrivateRoute path="/adicionar-descoberta" component={AddDescoberta}/>
-              <PrivateRoute path="/editar-descoberta/:id" component={EditDescoberta}/>
-              <PrivateRoute path="/editar-comentario/:id" component={EditComentario}/>
+              <PrivateRoute path="/editar-descoberta/:idDescoberta" component={EditDescoberta}/>
+              <PrivateRoute path="/editar-comentario/:idComentario" component={EditComentario}/>
             </Switch>
           </BrowserRouter>
           </GlobalProviderComentarios>
