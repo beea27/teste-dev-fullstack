@@ -13,6 +13,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: "none"
+  },
+  input: {
+    fontSize: "12px"
   }
 }));
 
@@ -62,6 +65,7 @@ export const AddComentario = () => {
             id="assunto" 
             value={assunto}
             onChange={e => setAssunto(e.target.value)}
+            className={classes.input}
           />
 
           <Text htmlFor="descricao">Descrição</Text>
@@ -69,6 +73,7 @@ export const AddComentario = () => {
             id="descricao" 
             value={descricao}
             onChange={e => setDescricao(e.target.value)}
+            className={classes.input}
           />
         
         <Buttons>

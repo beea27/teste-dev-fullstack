@@ -9,7 +9,7 @@ export const Container = styled.div`
   max-width: 100%;
 
   @media (min-width: 1024px) {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
 `;
 

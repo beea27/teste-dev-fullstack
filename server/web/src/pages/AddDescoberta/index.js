@@ -13,6 +13,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: "none"
+  },
+  input: {
+    fontSize: "12px"
   }
 }));
 
@@ -56,16 +59,18 @@ export const AddDescoberta = () => {
         <form onSubmit={handleSubmit}>
           <Box>
           <Title>Nova Descoberta</Title>
-          <Text htmlFor="descoberta">O que encontrou?</Text>
+
+          <Text>O que encontrou?</Text>
           <Input 
             id="descoberta" 
             value={descoberta} 
             onChange={e => setDescoberta(e.target.value)}
+            className={classes.input}
           />
-           <form noValidate>
+
+          <Text>Data</Text>
           <TextField
             id="date"
-            label="Data"
             type="date"
             InputLabelProps={{
               shrink: true,
@@ -73,11 +78,10 @@ export const AddDescoberta = () => {
             value={data} 
             onChange={e => setData(e.target.value)}
           />
-        </form>
-        <form noValidate>
+
+          <Text>Horário</Text>
           <TextField
             id="time"
-            label="Horário"
             type="time"
             defaultValue="07:30"
             InputLabelProps={{
@@ -89,12 +93,13 @@ export const AddDescoberta = () => {
             value={horario} 
             onChange={e => setHorario(e.target.value)}
           />
-        </form>
-          <Text htmlFor="descricao">Descrição</Text>
+
+          <Text>Descrição</Text>
           <Input 
             id="descricao" 
             value={descricao} 
             onChange={e => setDescricao(e.target.value)}
+            className={classes.input}
           />
           
           <Buttons>

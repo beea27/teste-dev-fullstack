@@ -9,7 +9,7 @@ export const Container = styled.div`
   max-width: 100%;
 
   @media (min-width: 1024px) {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
 `;
 
@@ -62,4 +62,22 @@ export const Buttons = styled.div`
   justify-content: center;
   margin-top: 20px;
 `
+export const TextData = styled.p`
+  margin-top: ${px2vw(20)};
+  color: #666;
+  font-size: 1.4rem;
 
+  @media (min-width: 1024px) {
+    font-size: 0.5rem;
+  }
+`;
+
+export const TextDescricao = styled.p`
+  margin-top: ${px2vw(20)};
+  color: #666;
+  font-size: 1.5rem;
+
+  @media (min-width: 1024px) {
+    font-size: 0.8rem;
+  }
+`;

@@ -8,8 +8,20 @@ import api from './../../services/api';
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: "none"
+  },
+  input: {
+    fontSize: "12px"
+  }
+}));
+
 export const EditComentario = () => { 
   const history = useHistory();
+  const classes = useStyles();
   
   const [assunto, setAssunto] = useState('');
   const [descricao, setDescricao] = useState('');
@@ -66,6 +78,7 @@ export const EditComentario = () => {
             id="assunto" 
             value={assunto}
             onChange={e => setAssunto(e.target.value)}
+            className={classes.input}
           />
 
           <Text htmlFor="descricao">Descrição</Text>
@@ -73,11 +86,12 @@ export const EditComentario = () => {
             id="descricao" 
             value={descricao}
             onChange={e => setDescricao(e.target.value)}
+            className={classes.input}
           />
         
         <Buttons>
           <MyButton type="submit" color="blue">Salvar</MyButton>
-          <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
+          <Link className={classes.link} to="/home"><MyButton color="red">Cancelar</MyButton></Link>
         </Buttons>
         </Box>
       </form>

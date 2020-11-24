@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(11),
     textDecoration: "none"
   },
+  link: {
+    textDecoration: "none"
+  }
 }));
 
 export const Login = () => {
@@ -82,7 +85,7 @@ export const Login = () => {
         
         <Buttons>
           <MyButton type="submit" color="blue">Logar</MyButton>
-          <Link to="/cadastro"><MyButton color="blue">Cadastrar</MyButton></Link>
+          <Link className={classes.link} to="/cadastro"><MyButton color="blue">Cadastrar</MyButton></Link>
         </Buttons>
         </Box>
       </form>

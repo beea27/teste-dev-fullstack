@@ -16,11 +16,10 @@ export const Container = styled.div`
 export const Box = styled.div`
    display: flex;
     width: ${px2vw(1000)};
-    min-height: ${px2vw(100)};
+    min-height: ${px2vw(200)};
     flex-direction: column;
     padding: ${px2vw(60)};
     margin: ${px2vw(20)};
-    background-color: ${props => props.bgColor};
     height: 100%;
     border: 1px solid gray;
     border-radius: 5px;

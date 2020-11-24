@@ -9,8 +9,19 @@ import { Container, Box, Buttons, Text, Title } from "./styles";
 
 import api from './../../services/api';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: "none"
+  },
+  input: {
+    fontSize: "12px"
+  }
+}));
+
 export const EditDescoberta = () => {
-  
+  const classes = useStyles();
   const history = useHistory();
   
   const [descoberta, setDescoberta] = useState('');
@@ -64,14 +75,15 @@ export const EditDescoberta = () => {
       <Container>
         <form onSubmit={handleSubmit}>
           <Box>
-          <Title>Nova Descoberta</Title>
-          <Text htmlFor="descoberta">O que encontrou?</Text>
+          <Title>Editar Descoberta</Title>
+          <Text>O que encontrou?</Text>
           <Input 
             id="descoberta" 
             value={descoberta} 
             onChange={e => setDescoberta(e.target.value)}
+            className={classes.input}
           />
-           <form noValidate>
+
           <TextField
             id="date"
             label="Data"
@@ -82,8 +94,7 @@ export const EditDescoberta = () => {
             value={data} 
             onChange={e => setData(e.target.value)}
           />
-        </form>
-        <form noValidate>
+
           <TextField
             id="time"
             label="Horário"
@@ -98,17 +109,18 @@ export const EditDescoberta = () => {
             value={horario} 
             onChange={e => setHorario(e.target.value)}
           />
-        </form>
-          <Text htmlFor="descricao">Descrição</Text>
+
+          <Text>Descrição</Text>
           <Input 
             id="descricao" 
             value={descricao} 
             onChange={e => setDescricao(e.target.value)}
+            className={classes.input}
           />
           
           <Buttons>
             <MyButton type="submit" color="blue">Salvar</MyButton>
-            <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
+            <Link className={classes.link} to="/home"><MyButton color="red">Cancelar</MyButton></Link>
           </Buttons>
 
           </Box>

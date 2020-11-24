@@ -18,7 +18,7 @@ export const Box = styled.div`
     width: ${px2vw(1000)};
     min-height: ${px2vw(100)};
     flex-direction: column;
-    padding: ${px2vw(20)};
+    padding: ${px2vw(60)};
     margin: ${px2vw(20)};
     background-color: ${props => props.bgColor};
     height: 100%;

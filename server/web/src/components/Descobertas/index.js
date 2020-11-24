@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 
-import { Container, Box, Title, Text, Buttons} from "./styles";
+import { Container, Box, Title, TextData, TextDescricao, Buttons} from "./styles";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +29,7 @@ export const Descobertas = () => {
   },[]);
 
   async function handleDelete(id){
-    if(window.confirm("Tem certeza?")){
+    if(window.confirm("Dseja mesmo excluir?")){
       const result = await api.delete('/api/descobertas/'+id);
       if(result.status === 200){
         history.push('/home');
@@ -51,9 +51,9 @@ export const Descobertas = () => {
                 <Card style={{margin: "20px"}} key={descoberta._id}>
                   <Box>
                     <Title>{descoberta.nome_descoberta}</Title>
-                    <Text>{descoberta.data_descoberta}</Text>
-                    <Text>{descoberta.horario_descoberta}</Text>
-                    <Text>{descoberta.descricao_descoberta}</Text>
+                    <TextData>Data: {descoberta.data_descoberta}</TextData>
+                    <TextData>Horário: {descoberta.horario_descoberta}</TextData>
+                    <TextDescricao>{descoberta.descricao_descoberta}</TextDescricao>
 
                     <Buttons>
                       <Link className={classes.link} to={`/editar-descoberta/${descoberta._id}`}>
@@ -67,7 +67,7 @@ export const Descobertas = () => {
             )}
             </>
           ) : (
-            <Text>Lista de descobertas vazia :(</Text>
+            <TextDescricao>Lista de descobertas vazia :(</TextDescricao>
           )}
         </Container>
       </div>

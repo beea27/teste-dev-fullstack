@@ -29,7 +29,7 @@ export const Comentarios = () => {
   },[]);
 
   async function handleDelete(id){
-    if(window.confirm("Tem certeza?")){
+    if(window.confirm("Deseja mesmo excluir?")){
       const result = await api.delete('/api/comentarios/'+id);
       if(result.status === 200){
         history.push('/home');
