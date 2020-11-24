@@ -40,6 +40,8 @@ export const Login = () => {
           setIdUsuario(res.data.id_client);
           setNomeUsuario(res.data.user_name);
 
+          sessionStorage.setItem('myCat', 'Tom');
+          
           history.push('/home');
         }else if(res.data.status ===2){
           alert('Atenção: ' +res.data.error);

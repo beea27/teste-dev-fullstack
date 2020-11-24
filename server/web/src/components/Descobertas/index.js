@@ -6,8 +6,17 @@ import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 import { Container, Box, Title, Text, Buttons} from "./styles";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+
+  link: {
+    textDecoration: "none"
+  }
+}));
 
 export const Descobertas = () => {
+  const classes = useStyles();
   const history = useHistory();
   const [descobertas, setDescobertas] = useState([]);
 
@@ -47,7 +56,7 @@ export const Descobertas = () => {
                     <Text>{descoberta.descricao_descoberta}</Text>
 
                     <Buttons>
-                      <Link to={`/editar-descoberta/${descoberta._id}`}>
+                      <Link className={classes.link} to={`/editar-descoberta/${descoberta._id}`}>
                         <MyButton type="submit" color="blue">Editar</MyButton>
                       </Link>            
                       <MyButton onClick={() => handleDelete(descoberta._id)} color="red">Excluir</MyButton>

@@ -5,8 +5,18 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { Container, Box, Title, Text, Buttons } from "./styles";
 import api from '../../services/api';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+
+  link: {
+    textDecoration: "none"
+  }
+}));
 
 export const Comentarios = () => {
+  const classes = useStyles();
+
   const history = useHistory();
   const [comentarios, setComentarios] = useState([]);
 
@@ -45,7 +55,7 @@ export const Comentarios = () => {
                     <Text>{comentario.descricao_comentario}</Text>
 
                     <Buttons>
-                      <Link to={`/editar-comentario/${comentario._id}`}>
+                      <Link className={classes.link} to={`/editar-comentario/${comentario._id}`}>
                         <MyButton type="submit" color="blue">Editar</MyButton>
                       </Link>            
                       <MyButton onClick={() => handleDelete(comentario._id)} color="red">Excluir</MyButton>

@@ -8,9 +8,16 @@ import { Heading } from './../../components/Heading';
 import { Container, Box, Buttons, Text, Title } from "./styles";
 
 import api from './../../services/api';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: "none"
+  }
+}));
 
 export const AddDescoberta = () => {
-  
+  const classes = useStyles();
   const history = useHistory();
   
   const [descoberta, setDescoberta] = useState('');
@@ -92,7 +99,7 @@ export const AddDescoberta = () => {
           
           <Buttons>
             <MyButton type="submit" color="blue">Salvar</MyButton>
-            <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
+            <Link className={classes.link} to="/home"><MyButton color="red">Cancelar</MyButton></Link>
           </Buttons>
 
           </Box>

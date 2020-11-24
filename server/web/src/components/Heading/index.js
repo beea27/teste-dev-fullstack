@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(11),
     textDecoration: "none"
   },
+  link: {
+    textDecoration: "none"
+  }
 }));
 
 export const Heading = () => {
@@ -91,9 +94,9 @@ export const Heading = () => {
               <Paper className={classes.paper}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <Link to="/home"><MenuItem><Text>Home</Text></MenuItem></Link>
-                    <Link to="/adicionar-descoberta"><MenuItem><Text>Nova Descoberta</Text></MenuItem></Link>
-                    <Link to="/adicionar-comentario"><MenuItem><Text>Novo Comentário</Text></MenuItem></Link>
+                    <Link className={classes.link} to="/home"><MenuItem><Text>Home</Text></MenuItem></Link>
+                    <Link className={classes.link} to="/adicionar-descoberta"><MenuItem><Text>Nova Descoberta</Text></MenuItem></Link>
+                    <Link className={classes.link} to="/adicionar-comentario"><MenuItem><Text>Novo Comentário</Text></MenuItem></Link>
                     <MenuItem onClick={Sair}><Text>Sair</Text></MenuItem>
                   </MenuList>
                 </ClickAwayListener>

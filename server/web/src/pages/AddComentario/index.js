@@ -8,7 +8,17 @@ import api from './../../services/api';
 
 import { Container, Box, Buttons, Text, Title } from "./styles";
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: "none"
+  }
+}));
+
 export const AddComentario = () => { 
+  const classes = useStyles();
+
   const history = useHistory();
   
   const [assunto, setAssunto] = useState('');
@@ -63,7 +73,7 @@ export const AddComentario = () => {
         
         <Buttons>
           <MyButton type="submit" color="blue">Salvar</MyButton>
-          <Link to="/home"><MyButton color="red">Cancelar</MyButton></Link>
+          <Link className={classes.link} to="/home"><MyButton color="red">Cancelar</MyButton></Link>
         </Buttons>
         </Box>
       </form>
