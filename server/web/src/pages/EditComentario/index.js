@@ -50,11 +50,8 @@ export const EditComentario = () => {
 
 
     const response = await api.put('/api/comentarios', novoComentario);
-    console.log(response);
 
     if(assunto!=='' && descricao!==''){
-      console.log(response);
-
       if(response.status===200){
         history.push('/home')
       }

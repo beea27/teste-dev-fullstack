@@ -36,18 +36,16 @@ export const Login = () => {
   async function handleSubmit(e){
     e.preventDefault()
     await api.post('/api/usuarios/login', {email, senha})
-    .then(res => {
-      if(res.status===200){
-        if(res.data.status===1){
-          login(res.data.token);
-          setIdUsuario(res.data.id_client);
-          setNomeUsuario(res.data.user_name);
-
-          sessionStorage.setItem('myCat', 'Tom');
+    .then(response => {
+      if(response.status===200){
+        if(response.data.status===1){
+          login(response.data.token);
+          setIdUsuario(response.data.id_client);
+          setNomeUsuario(response.data.user_name);
           
           history.push('/home');
-        }else if(res.data.status ===2){
-          alert('Atenção: ' +res.data.error);
+        }else if(response.data.status ===2){
+          alert('Atenção: ' +response.data.error);
         }
       }
       else{

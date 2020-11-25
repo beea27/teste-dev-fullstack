@@ -1,14 +1,13 @@
 const Comentario = require('../models/comentario.model');
 
 module.exports = {
-  async index(req, res){
+  async index(request, response){
     const comentario = await Comentario.find();
-    res.json(comentario);
+    response.json(comentario);
   },
 
-  async create(req, res){
-    const {assunto_comentario, descricao_comentario} = req.body
-
+  async create(request, response){
+    const {assunto_comentario, descricao_comentario} = request.body;
 
     let data = {};
 
@@ -16,28 +15,28 @@ module.exports = {
     if(!comentario){
       data = {assunto_comentario, descricao_comentario}
       comentario = await Comentario.create(data);
-      return res.status(200).json(comentario);
+      return response.status(200).json(comentario);
     }else{
-      return res.status(500).json(comentario);
+      return response.status(500).json(comentario);
     }
   },
 
-  async details(req, res){
-    const {_id} = req.params;
+  async details(request, response){
+    const {_id} = request.params;
     const comentario = await Comentario.findOne({_id});
-    res.json(comentario);
+    response.json(comentario);
   },
 
-  async delete(req, res){
-    const {_id} = req.params;
+  async delete(request, response){
+    const {_id} = request.params;
     const comentario = await Comentario.findByIdAndDelete({_id});
-    return res.json(comentario);
+    return response.json(comentario);
   },
 
-  async update(req, res){
-    const {_id, assunto_comentario, descricao_comentario} = req.body;
+  async update(request, response){
+    const {_id, assunto_comentario, descricao_comentario} = request.body;
     const data = {assunto_comentario, descricao_comentario};
     const comentario = await Comentario.findOneAndUpdate({_id}, data, {new:true});
-    res.json(comentario);
+    response.json(comentario);
   },
 }

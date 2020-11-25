@@ -28,14 +28,13 @@ export const Cadastro = () => {
 
   async function handleSubmit(e){
     e.preventDefault()
+    
     const data = {
       nome_usuario:nome,
       email_usuario:email,
       senha_usuario:senha,
     }
 
-    console.log(data);
-    
     if(nome!==''&&email!==''&&senha!==''){
       const response = await api.post('/api/usuarios', data);
 

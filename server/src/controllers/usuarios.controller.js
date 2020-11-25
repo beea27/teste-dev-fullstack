@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 const secret = "mysecret"
 
 module.exports = {
-  async index(req, res){
+  async index(request, response){
     const user = await Usuario.find();
-    res.json(user);
+    response.json(user);
   },
 
-  async create(req, res){
-    const {nome_usuario, email_usuario, senha_usuario} = req.body
+  async create(request, response){
+    const {nome_usuario, email_usuario, senha_usuario} = request.body
 
     let data = {};
 
@@ -17,85 +17,85 @@ module.exports = {
     if(!user){
       data = {nome_usuario, email_usuario, senha_usuario}
       user = await Usuario.create(data);
-      return res.status(200).json(user);
+      return response.status(200).json(user);
     }else{
-      return res.status(500).json(user);
+      return response.status(500).json(user);
     }
   },
 
-  async details(req, res){
-    const {_id} = req.params;
+  async details(request, response){
+    const {_id} = request.params;
     const user = await Usuario.findOne({_id});
-    res.json(user);
+    response.json(user);
   },
 
-  async delete(req, res){
-    const {_id} = req.params;
+  async delete(request, response){
+    const {_id} = request.params;
     const user = await Usuario.findByIdAndDelete({_id});
-    return res.json(user);
+    return response.json(user);
   },
 
-  async update(req, res){
-    const {_id, nome_usuario, email_usuario, senha_usuario} = req.body;
+  async update(request, response){
+    const {_id, nome_usuario, email_usuario, senha_usuario} = request.body;
     const data = {nome_usuario, email_usuario, senha_usuario};
     const user = await Usuario.findOneAndUpdate({_id}, data, {new:true});
-    res.json(user);
+    response.json(user);
   },
 
-  async login(req, res){
-    const {email, senha} = req.body;
+  async login(request, response){
+    const {email, senha} = request.body;
     Usuario.findOne({email_usuario: email}, function(err, user){
       if(err){
-        res.status(200).json({erro: "Erro no servidor. Por favor, tente novamente"});
+        response.status(200).json({erro: "Erro no servidor. Por favor, tente novamente"});
       }
       else if(!user){
-        res.status(200).json({status:2, error: 'E-mail não encontrado no banco de dados'});
+        response.status(200).json({status:2, error: 'E-mail não encontrado no banco de dados'});
       }
       else{
         user.isCorrectPassword(senha, async function (err, same){
           if(err){
-            res.status(200).json({error: "Erro no servidor. Por favor, tente novamente"});
+            response.status(200).json({error: "Erro no servidor. Por favor, tente novamente"});
           }
           else if(!same){
-            res.status(200).json({status:2, error: "A senha não confere"})
+            response.status(200).json({status:2, error: "A senha não confere"})
           }
           else{
             const payload = {email}
             const token = jwt.sign(payload, secret, {
-              expiresIn: '24h'
+              expiresponseIn: '24h'
             })
-            res.cookie('token', token, {httpOnly: true});
-            res.status(200).json({status:1, auth:true, token:token, id_client: user._id, user_name: user.nome_usuario})
+            response.cookie('token', token, {httpOnly: true});
+            response.status(200).json({status:1, auth:true, token:token, id_client: user._id, user_name: user.nome_usuario})
           }
         })
       }
     })
   },
 
-  async checkToken(req, res){
-    const token = req.body.token || req.query.token || req.cookies.token || req.headers['x-access-token'];
+  async checkToken(request, response){
+    const token = request.body.token || request.query.token || request.cookies.token || request.headers['x-access-token'];
     if(!token){
-      res.json({status:401, msg:'Não autorizado: Token inexistente!'})
+      response.json({status:401, msg:'Não autorizado: Token inexistente!'})
     }
     else{
       jwt.verify(token, secret, function(err, decoded){
         if(err){
-          res.json({status:401, msg:'Não autorizado: Token inválido!'});
+          response.json({status:401, msg:'Não autorizado: Token inválido!'});
         }
         else{
-          res.json({status:200})
+          response.json({status:200})
         }
       })
     }
   },
 
-  async destroyToken(req,res){
-    const token = req.headers.token;
+  async destroyToken(request,response){
+    const token = request.headers.token;
     if(token){
-        res.cookie('token',null,{httpOnly:true});
+        response.cookie('token',null,{httpOnly:true});
     }else{
-        res.status(401).send("Logout não autorizado!")
+        response.status(401).send("Logout não autorizado!")
     }
-    res.send("Sessão finalizada com sucesso!");
+    response.send("Sessão finalizada com sucesso!");
 }
 }

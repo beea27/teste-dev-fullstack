@@ -33,6 +33,7 @@ export const Descobertas = () => {
       const result = await api.delete('/api/descobertas/'+id);
       if(result.status === 200){
         history.push('/home');
+        setDescobertas(result.data)
       }
       else{
         alert('Ocorreu um erro. Tente novamente');

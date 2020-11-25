@@ -37,11 +37,8 @@ export const AddComentario = () => {
 
 
     const response = await api.post('/api/comentarios', novoComentario);
-    console.log(response);
 
     if(assunto!=='' && descricao!==''){
-      console.log(response);
-
       if(response.status===200){
         history.push('/home')
       }

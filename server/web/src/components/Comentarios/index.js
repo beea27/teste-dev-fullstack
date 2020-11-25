@@ -8,7 +8,6 @@ import api from '../../services/api';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-
   link: {
     textDecoration: "none"
   }
@@ -33,6 +32,7 @@ export const Comentarios = () => {
       const result = await api.delete('/api/comentarios/'+id);
       if(result.status === 200){
         history.push('/home');
+        setComentarios(result.data);
       }
       else{
         alert('Ocorreu um erro. Tente novamente');
